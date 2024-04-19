@@ -2,7 +2,7 @@ import { styled } from "styled-components";
 
 export const Container = styled.header`
   background-color: #101010;
-  padding: 16px 0;
+  padding: 16px 10px;
   .container {
     max-width: 576px;
     margin: 0 auto;
