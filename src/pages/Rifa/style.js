@@ -2,9 +2,9 @@ import { styled } from "styled-components";
 
 export const Container = styled.div`
   background-color: #141414;
+  height: 100vh;
 
   .hidden {
- 
   }
 
   .container-home {
@@ -16,6 +16,142 @@ export const Container = styled.div`
     border-radius: 20px;
     margin-top: -40px;
 
+    .title {
+      text-align: center;
+      color: #fff;
+      text-transform: uppercase;
+      font-size: 14.4px;
+      margin-top: 10px;
+
+      p {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+      }
+      span {
+        background-color: #101010;
+        padding: 6px 10px;
+        border-radius: 5px;
+      }
+    }
+
+    .numeros {
+      display: flex;
+      border-radius: 10px;
+      gap: 10px;
+      padding: 10px 10px;
+      background-color: #202020;
+      -webkit-box-shadow: 0 4px 3px rgba(0, 0, 0, 0.08);
+      margin-top: 10px;
+      button {
+        background-color: #157347;
+        padding: 5px 10px; 
+        border-radius: 5px;
+        font-size: 13px;
+        font-weight: 600;
+        color: #fff;
+        cursor: pointer;
+        border: none;
+        font-family: 'Montserrat',sans-serif;
+      }
+    }
+
+    .info-sorteio {
+      color: #fff;
+      font-size: 14.4px;
+
+      p {
+        display: flex;
+        align-items: center;
+        justify-content: start;
+        gap: 5px;
+      }
+      span {
+        background-color: #8c8c8c;
+        padding: 6px 10px;
+        border-radius: 5px;
+      }
+    }
+
+    .social {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 5px;
+      margin-top: 5px;
+
+      svg {
+        width: 100%;
+        height: 100%;
+        color: #fff;
+      }
+
+      .facebook,
+      .telegram,
+      .twitter,
+      .telegram,
+      .whatsapp {
+        padding: 5px;
+        border-radius: 5px;
+        height: 32px;
+        width: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.5s ease;
+      }
+
+      .facebook {
+        background-color: #3b5998;
+      }
+      .telegram {
+        background-color: #1da1f2;
+      }
+      .twitter {
+        background-color: #08c;
+      }
+
+      .whatsapp {
+        background-color: #4dc247;
+      }
+
+      .social > div:hover {
+        filter: brightness(0.7);
+      }
+    }
+
+    .promocao-numeros {
+      margin-top: 6px;
+      h1 {
+        color: #fff;
+      padding-right: 5px;
+      font-weight: 600;
+      font-size: 20.5px;
+      margin: 0;
+
+      span {
+        font-size: 14px;
+        font-weight: 400;
+      }
+      }
+
+      #numeros {
+        a {
+          background-color: #5c636a;
+          display: flex;
+          justify-content: center;
+          gap: 5px;
+          color: #fff;
+          padding: 6px;
+          border-radius: 6px;
+          margin-top: 8px;
+        }
+      }
+    }
+
     .card-banner {
       font-family: Montserrat, sans-serif;
       color: #fff;
@@ -25,10 +161,6 @@ export const Container = styled.div`
       border-radius: 10px;
       padding: 4px;
       padding-bottom: 20px;
-
-      a {
-        color: #fff;
-      }
       .desc {
         h1 {
           font-size: 16px;
@@ -108,8 +240,6 @@ export const Container = styled.div`
         object-fit: cover;
         margin-right: 10px;
       }
-
-
 
       .desc {
         h1 {
