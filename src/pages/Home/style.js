@@ -10,7 +10,7 @@ export const Container = styled.div`
   .container-home {
     max-width: 600px;
     margin: 0 auto;
-    height: 100%;
+    height: 100vh;
     background-color: #181818;
     padding: 14px;
     border-radius: 20px;
