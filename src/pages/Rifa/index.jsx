@@ -1,7 +1,7 @@
 import { Header } from "../../components/Header";
 import { Container } from "./style";
 import { Data } from "../../components/Data";
-
+import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import sorteio1 from "../../assets/sorteio1.jpeg";
 
 export function Rifa() {
@@ -109,7 +109,7 @@ export function Rifa() {
           <h1>
             ⚡ Cotas <span>Escolha sua sorte</span>
           </h1>
-          <div id="numeros">
+          <div id="numeros" className="button">
             <a>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -124,7 +124,70 @@ export function Rifa() {
               Ver meus números
             </a>
           </div>
-          <div className="numeros"></div>
+          <div className="numeros-select">
+            <h3>Selecione a quantidade de números</h3>
+
+            <div className="rifas-quant">
+              <div className="card-quant popular">
+                <span>+5</span>
+                <p>Selecionar</p>
+              </div>
+              <div className="card-quant popular">
+                <span>+10</span>
+                <p>Selecionar</p>
+              </div>
+              <div className="card-quant">
+                <span>+25</span>
+                <p>Selecionar</p>
+              </div>
+              <div className="card-quant">
+                <span>+50</span>
+                <p>Selecionar</p>
+              </div>
+              <div className="card-quant">
+                <span>+100</span>
+                <p>Selecionar</p>
+              </div>
+              <div className="card-quant">
+                <span>+250</span>
+                <p>Selecionar</p>
+              </div>
+            </div>
+
+            <div className="quant">
+              <div className="menos">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-dash-circle"
+                  viewBox="0 0 16 16"
+                >
+                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                  <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8" />
+                </svg>
+              </div>
+              <input readOnly />
+              <div className="mais">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-plus-circle"
+                  viewBox="0 0 16 16"
+                >
+                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
+                </svg>
+              </div>
+            </div>
+
+            <div className="button-participar">
+              <a href="#"><IoMdCheckmarkCircleOutline /> Participar do sorteio</a>
+            </div>
+          </div>
         </div>
       </div>
     </Container>

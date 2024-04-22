@@ -6,6 +6,32 @@ export const Container = styled.div`
   .hidden {
   }
 
+  .button {
+      a {
+          background-color: #5c636a;
+          display: flex;
+          justify-content: center;
+          gap: 5px;
+          color: #fff;
+          padding: 6px;
+          border-radius: 6px;
+          margin-top: 8px;
+        }
+    }
+
+  .button-participar {
+      a {
+          background-color: #198754;
+          display: flex;
+          justify-content: center;
+          gap: 5px;
+          color: #fff;
+          padding: 6px;
+          border-radius: 6px;
+          margin-top: 8px;
+        }
+    }
+
   .container-home {
     max-width: 600px;
     margin: 0 auto;
@@ -45,14 +71,106 @@ export const Container = styled.div`
       margin-top: 10px;
       button {
         background-color: #157347;
-        padding: 5px 10px; 
+        padding: 5px 10px;
         border-radius: 5px;
         font-size: 13px;
         font-weight: 600;
         color: #fff;
         cursor: pointer;
         border: none;
-        font-family: 'Montserrat',sans-serif;
+        font-family: "Montserrat", sans-serif;
+      }
+    }
+
+    .numeros-select {
+      display: flex;
+      flex-direction: column;
+      border-radius: 10px;
+      gap: 10px;
+      padding: 10px 10px;
+      justify-content: center;
+      background-color: #202020;
+      -webkit-box-shadow: 0 4px 3px rgba(0, 0, 0, 0.08);
+      margin-top: 10px;
+
+      h3 {
+        color: #fff;
+        font-size: 15px;
+        font-weight: 400;
+        text-align: center;
+      }
+
+      .rifas-quant {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2%;
+        max-width: 480px;
+        margin: 10px auto 0 auto;
+
+        .card-quant {
+          width: 49%;
+          padding: 20px 10px;
+          margin-bottom: 1%;
+          color: #fff;
+          text-align: center;
+          background-color: rgba(0, 0, 0, 0.1);
+          cursor: pointer;
+          span {
+            font-size: 25px;
+            font-weight: 500;
+          }
+          p {
+            text-transform: uppercase;
+            font-size: 13px;
+            margin-top: 3px;
+          }
+        }
+
+        .card-quant.popular {
+          border: 2px solid #198754;
+          position: relative;
+
+          &:after {
+            content: "Mais popular";
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            margin-left: -60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            border-radius: 50vw;
+            width: 120px;
+            height: 30px;
+            background-color: #198754;
+          }
+        }
+      }
+
+      .quant {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        align-items: center;
+        max-width: 480px;
+        margin: 0 auto;
+        width: 100%;
+        margin-top: 3px;
+        padding-bottom: 8px;
+
+        input {
+          height: 44px;
+          border-radius: 10px;
+          width: 100%;
+          max-width: 270px;
+
+        }
+        svg {
+          color: #fff;
+          width: 25px;
+          height: 25px;
+        }
       }
     }
 
@@ -126,30 +244,21 @@ export const Container = styled.div`
       margin-top: 6px;
       h1 {
         color: #fff;
-      padding-right: 5px;
-      font-weight: 600;
-      font-size: 20.5px;
-      margin: 0;
+        padding-right: 5px;
+        font-weight: 600;
+        font-size: 20.5px;
+        margin: 0;
 
-      span {
-        font-size: 14px;
-        font-weight: 400;
-      }
-      }
-
-      #numeros {
-        a {
-          background-color: #5c636a;
-          display: flex;
-          justify-content: center;
-          gap: 5px;
-          color: #fff;
-          padding: 6px;
-          border-radius: 6px;
-          margin-top: 8px;
+        span {
+          font-size: 14px;
+          font-weight: 400;
         }
       }
+
+
     }
+
+
 
     .card-banner {
       font-family: Montserrat, sans-serif;
