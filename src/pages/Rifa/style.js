@@ -29,6 +29,13 @@ export const Container = styled.div`
           padding: 6px;
           border-radius: 6px;
           margin-top: 8px;
+        position: relative;
+          span {
+            font-weight: 700;
+            font-size: 14px;
+            position: absolute;
+            right: 13px;
+          }
         }
     }
 
@@ -63,6 +70,7 @@ export const Container = styled.div`
 
     .numeros {
       display: flex;
+      flex-wrap: wrap;
       border-radius: 10px;
       gap: 10px;
       padding: 10px 10px;
@@ -129,6 +137,8 @@ export const Container = styled.div`
         .card-quant.popular {
           border: 2px solid #198754;
           position: relative;
+          border-radius: 6px;
+          background-color: #181818;
 
           &:after {
             content: "Mais popular";
@@ -164,6 +174,9 @@ export const Container = styled.div`
           border-radius: 10px;
           width: 100%;
           max-width: 270px;
+          text-align: center;
+          font-weight: 500;
+          font-size:  24px;
 
         }
         svg {

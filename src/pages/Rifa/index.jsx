@@ -3,8 +3,22 @@ import { Container } from "./style";
 import { Data } from "../../components/Data";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import sorteio1 from "../../assets/sorteio1.jpeg";
+import { useState } from "react";
 
 export function Rifa() {
+  const [quant, setQuant] = useState(1);
+
+  function handleQuant(quant) {
+    setQuant((prevQuant) => prevQuant + quant);
+  }
+
+  function handleRemoveQuant(quantRifa) {
+
+    if (quant > 1) {
+      setQuant((prevQuant) => prevQuant - 1);
+    }
+  }
+
   return (
     <Container>
       <Header />
@@ -128,34 +142,42 @@ export function Rifa() {
             <h3>Selecione a quantidade de números</h3>
 
             <div className="rifas-quant">
-              <div className="card-quant popular">
+              <div
+                className="card-quant popular"
+                onClick={(e) => handleQuant(5)}
+              >
                 <span>+5</span>
                 <p>Selecionar</p>
               </div>
-              <div className="card-quant popular">
+
+              <div
+                className="card-quant popular"
+                onClick={(e) => handleQuant(10)}
+              >
                 <span>+10</span>
                 <p>Selecionar</p>
               </div>
-              <div className="card-quant">
+
+              <div className="card-quant" onClick={(e) => handleQuant(25)}>
                 <span>+25</span>
                 <p>Selecionar</p>
               </div>
-              <div className="card-quant">
+              <div className="card-quant" onClick={(e) => handleQuant(50)}>
                 <span>+50</span>
                 <p>Selecionar</p>
               </div>
-              <div className="card-quant">
+              <div className="card-quant" onClick={(e) => handleQuant(100)}>
                 <span>+100</span>
                 <p>Selecionar</p>
               </div>
-              <div className="card-quant">
+              <div className="card-quant" onClick={(e) => handleQuant(250)}>
                 <span>+250</span>
                 <p>Selecionar</p>
               </div>
             </div>
 
             <div className="quant">
-              <div className="menos">
+              <div className="menos" onClick={(e) => handleRemoveQuant(1)}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="16"
@@ -168,8 +190,8 @@ export function Rifa() {
                   <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8" />
                 </svg>
               </div>
-              <input readOnly />
-              <div className="mais">
+              <input className="valueRifa" readOnly value={quant} />
+              <div className="mais" onClick={(e) => handleQuant(1)}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="16"
@@ -185,7 +207,11 @@ export function Rifa() {
             </div>
 
             <div className="button-participar">
-              <a href="#"><IoMdCheckmarkCircleOutline /> Participar do sorteio</a>
+              <a href="#">
+                <IoMdCheckmarkCircleOutline /> Participar do sorteio
+                <span>R$ {(quant * 0.70).toFixed(2)}</span>
+              </a>
+             
             </div>
           </div>
         </div>
