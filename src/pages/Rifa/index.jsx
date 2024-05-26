@@ -5,23 +5,48 @@ import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import sorteio1 from "../../assets/sorteio1.jpeg";
 import { useState } from "react";
 
+import {
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Button,
+  useDisclosure,
+} from "@nextui-org/react";
+
 export function Rifa() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [size, setSize] = useState("md");
+
   const [quant, setQuant] = useState(1);
+  const [quantRifas, setQuantRifas] = useState(1);
+
+  const handleOpen = () => {
+    onOpen();
+  };
 
   function handleQuant(quant) {
-    setQuant((prevQuant) => prevQuant + quant);
+    setQuantRifas((prevQuant) => prevQuant + quant);
+    console.log(quantRifas);
+    setQuant((prevQuant) => prevQuant + quant * 0.7);
+  }
+
+  function handleQuantPromo(quant) {
+    setQuantRifas((prevQuant) => prevQuant + quant);
+    setQuant((prevQuant) => prevQuant + quant * 0.63);
   }
 
   function handleRemoveQuant(quantRifa) {
-
     if (quant > 1) {
-      setQuant((prevQuant) => prevQuant - 1);
+      setQuant((prevQuant) => prevQuant - 0.7);
     }
   }
 
   return (
     <Container>
       <Header />
+
       <div className="line"></div>
       <div className="line2"></div>
       <div className="container-home">
@@ -112,10 +137,18 @@ export function Rifa() {
             📣 Promoção <span>Compre mais barato!</span>
           </h1>
           <div className="numeros">
-            <button>25 por R$ 15,75</button>
-            <button>50 por R$ 31,50</button>
-            <button>100 por R$ 63,00</button>
-            <button>500 por R$ 315,00</button>
+            <button onClick={(e) => handleQuantPromo(25)}>
+              25 por R$ 15,75
+            </button>
+            <button onClick={(e) => handleQuantPromo(50)}>
+              50 por R$ 31,50
+            </button>
+            <button onClick={(e) => handleQuantPromo(100)}>
+              100 por R$ 63,00
+            </button>
+            <button onClick={(e) => handleQuantPromo(500)}>
+              500 por R$ 315,00
+            </button>
           </div>
         </div>
 
@@ -123,6 +156,7 @@ export function Rifa() {
           <h1>
             ⚡ Cotas <span>Escolha sua sorte</span>
           </h1>
+
           <div id="numeros" className="button">
             <a>
               <svg
@@ -190,7 +224,7 @@ export function Rifa() {
                   <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8" />
                 </svg>
               </div>
-              <input className="valueRifa" readOnly value={quant} />
+              <input className="valueRifa" readOnly value={quantRifas} />
               <div className="mais" onClick={(e) => handleQuant(1)}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -206,16 +240,53 @@ export function Rifa() {
               </div>
             </div>
 
-            <div className="button-participar">
-              <a href="#">
+            <Button onPress={(e) => handleOpen()} className="button-participar ">
+           
                 <IoMdCheckmarkCircleOutline /> Participar do sorteio
-                <span>R$ {(quant * 0.70).toFixed(2)}</span>
-              </a>
-             
-            </div>
+                <span>R$ {quant.toFixed(2)}</span>
+        
+            </Button>
           </div>
         </div>
       </div>
+
+      <Modal size={size} isOpen={isOpen} onClose={onClose} className="dark text-foreground bg-background">
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalHeader className="flex flex-col gap-1">
+                Modal Title
+              </ModalHeader>
+              <ModalBody>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  Nullam pulvinar risus non risus hendrerit venenatis.
+                  Pellentesque sit amet hendrerit risus, sed porttitor quam.
+                </p>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  Nullam pulvinar risus non risus hendrerit venenatis.
+                  Pellentesque sit amet hendrerit risus, sed porttitor quam.
+                </p>
+                <p>
+                  Magna exercitation reprehenderit magna aute tempor cupidatat
+                  consequat elit dolor adipisicing. Mollit dolor eiusmod sunt ex
+                  incididunt cillum quis. Velit duis sit officia eiusmod Lorem
+                  aliqua enim laboris do dolor eiusmod.
+                </p>
+              </ModalBody>
+              <ModalFooter>
+                <Button color="danger" variant="light" onPress={onClose}>
+                  Close
+                </Button>
+                <Button color="primary" onPress={onClose}>
+                  Action
+                </Button>
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
     </Container>
   );
 }

@@ -20,7 +20,6 @@ export const Container = styled.div`
     }
 
   .button-participar {
-      a {
           background-color: #198754;
           display: flex;
           justify-content: center;
@@ -37,8 +36,7 @@ export const Container = styled.div`
             right: 13px;
           }
         }
-    }
-
+    
   .container-home {
     max-width: 600px;
     margin: 0 auto;
