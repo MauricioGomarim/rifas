@@ -1,9 +1,12 @@
 import { Header } from "../../components/Header";
 import { Container } from "./style";
+import { Input } from "../../components/Input";
 import { Data } from "../../components/Data";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import sorteio1 from "../../assets/sorteio1.jpeg";
 import { useState } from "react";
+import { FiArrowRightCircle } from "react-icons/fi";
+import { PiWarningCircle } from "react-icons/pi";
 
 import {
   Modal,
@@ -17,7 +20,7 @@ import {
 
 export function Rifa() {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [size, setSize] = useState("md");
+  const [size, setSize] = useState("lg");
 
   const [quant, setQuant] = useState(1);
   const [quantRifas, setQuantRifas] = useState(1);
@@ -240,48 +243,75 @@ export function Rifa() {
               </div>
             </div>
 
-            <Button onPress={(e) => handleOpen()} className="button-participar ">
-           
-                <IoMdCheckmarkCircleOutline /> Participar do sorteio
-                <span>R$ {quant.toFixed(2)}</span>
-        
+            <Button
+              onPress={(e) => handleOpen()}
+              className="button-participar "
+            >
+              <IoMdCheckmarkCircleOutline /> Participar do sorteio
+              <span>R$ {quant.toFixed(2)}</span>
             </Button>
           </div>
         </div>
       </div>
 
-      <Modal size={size} isOpen={isOpen} onClose={onClose} className="dark text-foreground bg-background">
+      <Modal
+        size={size}
+        isOpen={isOpen}
+        onClose={onClose}
+        className="dark text-foreground bg-background"
+      >
         <ModalContent>
           {(onClose) => (
             <>
-              <ModalHeader className="flex flex-col gap-1">
-                Modal Title
+              <ModalHeader className="flex flex-col gap-1 border-b border-gray-800">
+                Checkout
               </ModalHeader>
               <ModalBody>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Nullam pulvinar risus non risus hendrerit venenatis.
-                  Pellentesque sit amet hendrerit risus, sed porttitor quam.
-                </p>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Nullam pulvinar risus non risus hendrerit venenatis.
-                  Pellentesque sit amet hendrerit risus, sed porttitor quam.
-                </p>
-                <p>
-                  Magna exercitation reprehenderit magna aute tempor cupidatat
-                  consequat elit dolor adipisicing. Mollit dolor eiusmod sunt ex
-                  incididunt cillum quis. Velit duis sit officia eiusmod Lorem
-                  aliqua enim laboris do dolor eiusmod.
-                </p>
+                <div className="info-cotas">
+                  <i>
+                    <IoMdCheckmarkCircleOutline />
+                  </i>
+                  <span>Você está adquirindo</span>{" "}
+                  <span className="quantidade">{`${quant}`} cotas</span>{" "}
+                  <span> seus números serão gerados assim que concluir a compra.</span>
+                </div>
+
+                <Input title="Nome completo">
+                  <input />
+                </Input>
+
+                <Input title="E-mail">
+                  <input />
+                </Input>
+
+                <Input title="Celular">
+                  <input />
+                </Input>
+
+                <Input title="Confirmar o celular">
+                  <input />
+                </Input>
+
+                <Input title="CPF">
+                  <input />
+                </Input>
+
+                <div className="info-cotas-2">
+                  <i>
+                    <PiWarningCircle />
+                  </i>{" "}
+                  <span>
+                    Informe os dados corretos para recebimento das premiações.
+                  </span>
+                </div>
               </ModalBody>
               <ModalFooter>
-                <Button color="danger" variant="light" onPress={onClose}>
-                  Close
-                </Button>
-                <Button color="primary" onPress={onClose}>
-                  Action
-                </Button>
+              <Button
+              onPress={(e) => handleOpen()}
+              className="button-submit-form"
+            >
+               Concluir cadastro e pagar <FiArrowRightCircle />
+            </Button>
               </ModalFooter>
             </>
           )}

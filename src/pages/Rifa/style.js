@@ -3,6 +3,8 @@ import { styled } from "styled-components";
 export const Container = styled.div`
   background-color: #141414;
 
+
+
   .hidden {
   }
 
@@ -395,4 +397,7 @@ export const Container = styled.div`
     background-color: #131313;
     padding: 10px;
   }
+
+
+
 `;
