@@ -1,10 +1,12 @@
 import { Container } from "./style";
 import logo from "../../assets/logo.png";
+import { Link  } from "react-router-dom";
 export function Header() {
   return (
     <Container>
       <section className="container">
-        <img src={logo} />
+        <Link to="/"><img src={logo} /></Link>
+        
 
         <div className="icons">
           <div className="cart">
@@ -13,7 +15,7 @@ export function Header() {
               width="30"
               height="30"
               fill="#5C5C5C"
-              class="bi bi-cart-check"
+              className="bi bi-cart-check"
               viewBox="0 0 16 16"
             >
               <path d="M11.354 6.354a.5.5 0 0 0-.708-.708L8 8.293 6.854 7.146a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0z" />
@@ -26,7 +28,7 @@ export function Header() {
               width="34"
               height="34"
               fill="currentColor"
-              class="bi bi-filter-right"
+              className="bi bi-filter-right"
               viewBox="0 0 16 16"
             >
               <path d="M14 10.5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 .5-.5m0-3a.5.5 0 0 0-.5-.5h-7a.5.5 0 0 0 0 1h7a.5.5 0 0 0 .5-.5m0-3a.5.5 0 0 0-.5-.5h-11a.5.5 0 0 0 0 1h11a.5.5 0 0 0 .5-.5" />

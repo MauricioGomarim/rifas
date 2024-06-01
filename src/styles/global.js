@@ -41,5 +41,8 @@ export const GlobalStyles = createGlobalStyle`
         display: none !important;
     }
 
+    [data-focus-scope-end="true"] + #root {
+        filter: blur(5px) !important;
+    }
 
 `;

@@ -6,7 +6,8 @@ import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import sorteio1 from "../../assets/sorteio1.jpeg";
 import { useState } from "react";
 import { FiArrowRightCircle } from "react-icons/fi";
-import { PiWarningCircle } from "react-icons/pi";
+import { PiWarningCircle } from "react-icons/pi"; 
+import { useData } from "../../hook/infos"
 
 import {
   Modal,
@@ -20,14 +21,26 @@ import {
 
 export function Rifa() {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [size, setSize] = useState("lg");
+
+  const { setDadosPix } = useData();
+
 
   const [quant, setQuant] = useState(1);
   const [quantRifas, setQuantRifas] = useState(1);
 
+  const [name, setName] = useState();
+  const [email, setEmail] = useState();
+  const [celular, setCelular] = useState();
+  const [celularConfirm, setCelularConfirm] = useState();
+  const [cpf, setCpf] = useState();
+
   const handleOpen = () => {
     onOpen();
   };
+
+  function sendDate(){
+    setDadosPix(name, email, celular, cpf);
+  }
 
   function handleQuant(quant) {
     setQuantRifas((prevQuant) => prevQuant + quant);
@@ -87,7 +100,7 @@ export function Rifa() {
                 width="16"
                 height="16"
                 fill="currentColor"
-                class="bi bi-facebook"
+                className="bi bi-facebook"
                 viewBox="0 0 16 16"
               >
                 <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951" />
@@ -100,7 +113,7 @@ export function Rifa() {
                 width="16"
                 height="16"
                 fill="currentColor"
-                class="bi bi-telegram"
+                className="bi bi-telegram"
                 viewBox="0 0 16 16"
               >
                 <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.287 5.906q-1.168.486-4.666 2.01-.567.225-.595.442c-.03.243.275.339.69.47l.175.055c.408.133.958.288 1.243.294q.39.01.868-.32 3.269-2.206 3.374-2.23c.05-.012.12-.026.166.016s.042.12.037.141c-.03.129-1.227 1.241-1.846 1.817-.193.18-.33.307-.358.336a8 8 0 0 1-.188.186c-.38.366-.664.64.015 1.088.327.216.589.393.85.571.284.194.568.387.936.629q.14.092.27.187c.331.236.63.448.997.414.214-.02.435-.22.547-.82.265-1.417.786-4.486.906-5.751a1.4 1.4 0 0 0-.013-.315.34.34 0 0 0-.114-.217.53.53 0 0 0-.31-.093c-.3.005-.763.166-2.984 1.09" />
@@ -255,7 +268,7 @@ export function Rifa() {
       </div>
 
       <Modal
-        size={size}
+        size='lg'
         isOpen={isOpen}
         onClose={onClose}
         className="dark text-foreground bg-background"
@@ -271,35 +284,35 @@ export function Rifa() {
                   <i>
                     <IoMdCheckmarkCircleOutline />
                   </i>
-                  <span>Você está adquirindo</span>{" "}
-                  <span className="quantidade">{`${quant}`} cotas</span>{" "}
+                  <span>Você está adquirindo </span>
+                  <span className="quantidade">{`${quant}`} cotas</span>
                   <span> seus números serão gerados assim que concluir a compra.</span>
                 </div>
 
                 <Input title="Nome completo">
-                  <input />
+                  <input type="text" onChange={(e) => setName(e.target.value)}/>
                 </Input>
 
                 <Input title="E-mail">
-                  <input />
+                  <input type="email" onChange={(e) => setEmail(e.target.value)}/>
                 </Input>
 
                 <Input title="Celular">
-                  <input />
+                  <input type="tel" onChange={(e) => setCelular(e.target.value)}/>
                 </Input>
 
                 <Input title="Confirmar o celular">
-                  <input />
+                  <input type="tel" onChange={(e) => setCelularConfirm(e.target.value)}/>
                 </Input>
 
                 <Input title="CPF">
-                  <input />
+                  <input type="text" onChange={(e) => setCpf(e.target.value)}/>
                 </Input>
 
                 <div className="info-cotas-2">
                   <i>
                     <PiWarningCircle />
-                  </i>{" "}
+                  </i>
                   <span>
                     Informe os dados corretos para recebimento das premiações.
                   </span>
@@ -309,6 +322,7 @@ export function Rifa() {
               <Button
               onPress={(e) => handleOpen()}
               className="button-submit-form"
+              onClick={(e) => sendDate()}
             >
                Concluir cadastro e pagar <FiArrowRightCircle />
             </Button>
