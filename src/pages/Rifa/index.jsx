@@ -9,11 +9,7 @@ import { FiArrowRightCircle } from "react-icons/fi";
 import { PiWarningCircle } from "react-icons/pi";
 import { useData } from "../../hook/infos";
 import { useNavigate } from "react-router-dom";
-import {
-  validateEmail,
-  validateCPF,
-  validatePhone,
-} from "../../utils/validation";
+
 import { InputField } from "../../components/InputField";
 
 import { api } from "../../services/api";
@@ -56,16 +52,16 @@ export function Rifa() {
     if (!name) {
       return alert("Preencha o campo de nome!");
     }
-    if (!email || !validateEmail(email)) {
+    if (!email) {
       return alert("Preencha o campo de email corretamente!");
     }
-    if (!celular || !celularConfirm || !validatePhone(celular)) {
+    if (!celular || !celularConfirm) {
       return alert("Preencha o campo de celular corretamente!");
     }
     if (celular !== celularConfirm) {
       return alert("Os campos de celular devem ser iguais!");
     }
-    if (!cpf || !validateCPF(cpf)) {
+    if (!cpf) {
       return alert("Preencha o campo de CPF corretamente!");
     }
 
@@ -78,32 +74,31 @@ export function Rifa() {
 
     const dataHora = `${day}/${month}/${year}, ${hours}:${minutes}`;
 
-    // setDadosPix(name, email, celular, cpf, quant.toFixed(2), dataHora);
-    // navigate("/order");
+    setDadosPix(name, email, celular, cpf, quant.toFixed(2), dataHora);
+    navigate("/order");
 
-    // try {
-    //   const response = await api.post(`/orderRifa`, {
-    //     valorRifa: quant.toFixed(2),
-    //     email,
-    //     cpf
-    //   });
+    try {
+      const response = await api.post(`/orderRifa`, {
+        valorRifa: quant.toFixed(2),
+        email,
+        cpf
+      });
 
-    //   const codigo = response.data;
+      const codigo = response.data;
 
-    //   setDadosPix(name, email, celular, cpf, quant.toFixed(2), dataHora, codigo);
-    //   navigate("/order");
-    // } catch (error) {
-    //   if (error.response) {
-    //     alert(error);
-    //   } else {
-    //     alert("Error servidor");
-    //   }
-    // }
+      setDadosPix(name, email, celular, cpf, quant.toFixed(2), dataHora, codigo);
+      navigate("/order");
+    } catch (error) {
+      if (error.response) {
+        alert(error);
+      } else {
+        alert("Error servidor");
+      }
+    }
   }
 
   function handleQuant(quant) {
     setQuantRifas((prevQuant) => prevQuant + quant);
-    console.log(quantRifas);
     setQuant((prevQuant) => prevQuant + quant * 0.7);
   }
 
