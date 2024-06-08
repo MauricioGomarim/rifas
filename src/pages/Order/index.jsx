@@ -2,6 +2,7 @@ import { Header } from "../../components/Header";
 import { OrderText } from "../../components/OrderText";
 import { Container } from "./style";
 import { useData } from "../../hook/infos";
+import { FaCheck } from "react-icons/fa6";
 import {
   IoCheckmarkCircleOutline,
   IoCheckmarkDoneSharp,
@@ -10,9 +11,30 @@ import { Button } from "../../components/Button";
 
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import { PiWarningCircle } from "react-icons/pi";
+import { useState, useEffect } from "react";
 
 export function Order() {
-  const { data } = useData();
+  const { data, setData } = useData(null);
+  const [copy, setCopy] = useState();
+  
+  const handleCopy = () => {
+    const input = document.querySelector('.input-pix input');
+    if (input) {
+      input.select();
+      document.execCommand('copy');
+      navigator.clipboard.writeText(data.codigo).then(() => {
+        setCopy(true);
+      });
+    }
+  };
+
+  useEffect(() => {
+    const dataStorage = localStorage.getItem("@order");
+    if (dataStorage) {
+      setData(JSON.parse(dataStorage));
+    }
+  }, [setData]);
+
 
   return (
     <Container>
@@ -39,8 +61,8 @@ export function Order() {
           <div className="campos">
             <OrderText title="Copie o código PIX abaixo." number="1">
               <div className="input-pix">
-                <input type="text" />
-                <button>Copiar</button>
+                <input type="text" value={data.codigo} readOnly />
+                <button onClick={handleCopy}>{copy ? <FaCheck/> : "Copiar"}</button>
               </div>
             </OrderText>
 
@@ -96,11 +118,11 @@ export function Order() {
           <h1><PiWarningCircle />Detalhes da sua compra</h1>
 
           <div className="infos-detalhes">
-            <p><strong>Comprador:</strong> Mauricio Gomarim</p>
-            <p><strong>CPF:</strong> 394.***.***-80</p>
-            <p><strong>Telefone:</strong> 551709***</p>
-            <p><strong>Data/horário:</strong> 28/05/2024, 23:49</p>
-            <p><strong>Total:</strong> R$ 14</p>
+            <p><strong>Comprador:</strong> {data.nome}</p>
+            <p><strong>CPF:</strong> {data.cpf}</p>
+            <p><strong>Telefone:</strong> {data.celular}</p>
+            <p><strong>Data/horário:</strong> {data.dataHora}</p>
+            <p><strong>Total:</strong> R$ {data.valor}</p>
             <p><strong>Cotas:</strong> As cotas são liberadas após o pagamento</p>
           </div>
           </div>

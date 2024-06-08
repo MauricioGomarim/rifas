@@ -6,9 +6,17 @@ import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import sorteio1 from "../../assets/sorteio1.jpeg";
 import { useState } from "react";
 import { FiArrowRightCircle } from "react-icons/fi";
-import { PiWarningCircle } from "react-icons/pi"; 
-import { useData } from "../../hook/infos"
+import { PiWarningCircle } from "react-icons/pi";
+import { useData } from "../../hook/infos";
+import { useNavigate } from "react-router-dom";
+import {
+  validateEmail,
+  validateCPF,
+  validatePhone,
+} from "../../utils/validation";
+import { InputField } from "../../components/InputField";
 
+import { api } from "../../services/api";
 import {
   Modal,
   ModalContent,
@@ -20,10 +28,12 @@ import {
 } from "@nextui-org/react";
 
 export function Rifa() {
+  const [CPF, setCPF] = useState("");
+  const [mask, setMask] = useState("");
+
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const { setDadosPix } = useData();
-
+  const { setDadosPix, data } = useData();
 
   const [quant, setQuant] = useState(1);
   const [quantRifas, setQuantRifas] = useState(1);
@@ -32,14 +42,63 @@ export function Rifa() {
   const [email, setEmail] = useState();
   const [celular, setCelular] = useState();
   const [celularConfirm, setCelularConfirm] = useState();
-  const [cpf, setCpf] = useState();
+  const [cpf, setCpf] = useState("");
+
+  const [codigoQR, setCodigoQR] = useState();
+
+  const navigate = useNavigate();
 
   const handleOpen = () => {
     onOpen();
   };
 
-  function sendDate(){
-    setDadosPix(name, email, celular, cpf);
+  async function sendDate() {
+    if (!name) {
+      return alert("Preencha o campo de nome!");
+    }
+    if (!email || !validateEmail(email)) {
+      return alert("Preencha o campo de email corretamente!");
+    }
+    if (!celular || !celularConfirm || !validatePhone(celular)) {
+      return alert("Preencha o campo de celular corretamente!");
+    }
+    if (celular !== celularConfirm) {
+      return alert("Os campos de celular devem ser iguais!");
+    }
+    if (!cpf || !validateCPF(cpf)) {
+      return alert("Preencha o campo de CPF corretamente!");
+    }
+
+    const now = new Date();
+    const day = String(now.getDate()).padStart(2, "0");
+    const month = String(now.getMonth() + 1).padStart(2, "0");
+    const year = now.getFullYear();
+    const hours = String(now.getHours()).padStart(2, "0");
+    const minutes = String(now.getMinutes()).padStart(2, "0");
+
+    const dataHora = `${day}/${month}/${year}, ${hours}:${minutes}`;
+
+    // setDadosPix(name, email, celular, cpf, quant.toFixed(2), dataHora);
+    // navigate("/order");
+
+    // try {
+    //   const response = await api.post(`/orderRifa`, {
+    //     valorRifa: quant.toFixed(2),
+    //     email,
+    //     cpf
+    //   });
+
+    //   const codigo = response.data;
+
+    //   setDadosPix(name, email, celular, cpf, quant.toFixed(2), dataHora, codigo);
+    //   navigate("/order");
+    // } catch (error) {
+    //   if (error.response) {
+    //     alert(error);
+    //   } else {
+    //     alert("Error servidor");
+    //   }
+    // }
   }
 
   function handleQuant(quant) {
@@ -268,7 +327,7 @@ export function Rifa() {
       </div>
 
       <Modal
-        size='lg'
+        size="lg"
         isOpen={isOpen}
         onClose={onClose}
         className="dark text-foreground bg-background"
@@ -286,28 +345,52 @@ export function Rifa() {
                   </i>
                   <span>Você está adquirindo </span>
                   <span className="quantidade">{`${quant}`} cotas</span>
-                  <span> seus números serão gerados assim que concluir a compra.</span>
+                  <span>
+                    {" "}
+                    seus números serão gerados assim que concluir a compra.
+                  </span>
                 </div>
 
                 <Input title="Nome completo">
-                  <input type="text" onChange={(e) => setName(e.target.value)}/>
+                  <input
+                    type="text"
+                    onChange={(e) => setName(e.target.value)}
+                  />
                 </Input>
 
                 <Input title="E-mail">
-                  <input type="email" onChange={(e) => setEmail(e.target.value)}/>
+                  <input
+                    type="email"
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
                 </Input>
 
-                <Input title="Celular">
-                  <input type="tel" onChange={(e) => setCelular(e.target.value)}/>
-                </Input>
+                <InputField
+                  id="telefone"
+                  name="telefone"
+                  placeholder="xx xxxxx-xxxx"
+                  onChange={(e) => setCelular(e.target.value)}
+                  mask="telefone"
+                  title="Celular"
+                />
 
-                <Input title="Confirmar o celular">
-                  <input type="tel" onChange={(e) => setCelularConfirm(e.target.value)}/>
-                </Input>
+                <InputField
+                  id="telefone"
+                  name="telefone"
+                  placeholder="xx xxxxx-xxxx"
+                  onChange={(e) => setCelularConfirm(e.target.value)}
+                  mask="telefone"
+                  title="Confirmar celular"
+                />
 
-                <Input title="CPF">
-                  <input type="text" onChange={(e) => setCpf(e.target.value)}/>
-                </Input>
+                <InputField
+                  id="cpf"
+                  name="cpf"
+                  placeholder="xxx.xxx.xxx-xx"
+                  onChange={(e) => setCpf(e.target.value)}
+                  mask="cpf"
+                  title="CPF"
+                />
 
                 <div className="info-cotas-2">
                   <i>
@@ -319,13 +402,13 @@ export function Rifa() {
                 </div>
               </ModalBody>
               <ModalFooter>
-              <Button
-              onPress={(e) => handleOpen()}
-              className="button-submit-form"
-              onClick={(e) => sendDate()}
-            >
-               Concluir cadastro e pagar <FiArrowRightCircle />
-            </Button>
+                <Button
+                  onPress={(e) => handleOpen()}
+                  className="button-submit-form"
+                  onClick={(e) => sendDate()}
+                >
+                  Concluir cadastro e pagar <FiArrowRightCircle />
+                </Button>
               </ModalFooter>
             </>
           )}

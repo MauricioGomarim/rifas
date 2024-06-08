@@ -42,7 +42,7 @@ export const Container = styled.div`
         padding: 0 10px 10px 10px;
 
         .infos-detalhes {
-          p{
+          p {
             color: #fff;
             font-size: 13px;
             border-bottom: 1px solid #4f4f4f;
@@ -80,6 +80,10 @@ export const Container = styled.div`
           background-color: #198754;
           border-top-right-radius: 4px;
           border-bottom-right-radius: 4px;
+
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
       }
 
