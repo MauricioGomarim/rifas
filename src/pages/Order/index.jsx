@@ -3,6 +3,7 @@ import { OrderText } from "../../components/OrderText";
 import { Container } from "./style";
 import { useData } from "../../hook/infos";
 import { FaCheck } from "react-icons/fa6";
+import { api } from "../../services/api";
 import {
   IoCheckmarkCircleOutline,
   IoCheckmarkDoneSharp,
@@ -16,6 +17,21 @@ import { useState, useEffect } from "react";
 export function Order() {
   const { data, setData } = useData(null);
   const [copy, setCopy] = useState();
+
+
+  async function handlePayment() {
+    
+    try {
+      await api.post("/orderRifa/webhook", {
+        status: 'approved',
+        quantRifas: data.quantRifas
+      });
+      return 
+    } catch (error) {
+      return console.log(error)
+    }
+  }
+  
   
   const handleCopy = () => {
     const input = document.querySelector('.input-pix input');
@@ -84,9 +100,10 @@ export function Order() {
               </span>
             </div>
             <Button
-              disabled
+              
               title="Já fiz o pagamento"
               icon={<IoCheckmarkDoneSharp />}
+              onClick={handlePayment}
             />
 
             <div className="line-3"></div>

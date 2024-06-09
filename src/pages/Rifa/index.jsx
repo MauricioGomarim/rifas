@@ -29,7 +29,7 @@ export function Rifa() {
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const { setDadosPix, data } = useData();
+  const { data , setDadosPix} = useData();
 
   const [quant, setQuant] = useState(1);
   const [quantRifas, setQuantRifas] = useState(1);
@@ -65,6 +65,8 @@ export function Rifa() {
       return alert("Preencha o campo de CPF corretamente!");
     }
 
+
+
     const now = new Date();
     const day = String(now.getDate()).padStart(2, "0");
     const month = String(now.getMonth() + 1).padStart(2, "0");
@@ -73,9 +75,6 @@ export function Rifa() {
     const minutes = String(now.getMinutes()).padStart(2, "0");
 
     const dataHora = `${day}/${month}/${year}, ${hours}:${minutes}`;
-
-    setDadosPix(name, email, celular, cpf, quant.toFixed(2), dataHora);
-    navigate("/order");
 
     try {
       const response = await api.post(`/orderRifa`, {
@@ -87,7 +86,7 @@ export function Rifa() {
 
       const codigo = response.data;
 
-      setDadosPix(name, email, celular, cpf, quant.toFixed(2), dataHora, codigo);
+      setDadosPix(name, email, celular, cpf, quant.toFixed(2), dataHora, codigo, quantRifas);
       navigate("/order");
     } catch (error) {
       if (error.response) {
@@ -340,9 +339,8 @@ export function Rifa() {
                     <IoMdCheckmarkCircleOutline />
                   </i>
                   <span>Você está adquirindo </span>
-                  <span className="quantidade">{`${quant}`} cotas</span>
+                  <span className="quantidade">{`${quantRifas}`} cotas </span>
                   <span>
-                    {" "}
                     seus números serão gerados assim que concluir a compra.
                   </span>
                 </div>

@@ -10,10 +10,10 @@ function InfosProvider({ children }) {
 
 
 
-  async function setDadosPix(nome, email, celular, cpf, valor, dataHora, codigo) {
-    setData({nome, email, celular, cpf, valor, dataHora, codigo})
+  async function setDadosPix(nome, email, celular, cpf, valor, dataHora, codigo, quantRifas) {
+    setData({nome, email, celular, cpf, valor, dataHora, codigo, quantRifas})
 
-    localStorage.setItem("@order", JSON.stringify({nome, email, celular, cpf, valor, dataHora, codigo}));
+    localStorage.setItem("@order", JSON.stringify({nome, email, celular, cpf, valor, dataHora, codigo, quantRifas}));
   }
 
   async function setDadosPixQrCode(dadosQrCode) {
