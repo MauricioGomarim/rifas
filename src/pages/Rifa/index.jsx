@@ -78,7 +78,8 @@ export function Rifa() {
 
     try {
       const response = await api.post(`/orderRifa`, {
-        valorRifa: quant.toFixed(2),
+        // valorRifa: quant.toFixed(2),
+        valorRifa: 0.01,
         email,
         cpf,
         quantRifas
