@@ -85,9 +85,12 @@ export function Rifa() {
         quantRifas
       });
 
-      const codigo = response.data;
+      const codigo = response.data.qrCodeValue;
+      const idTransation = response.data.idTransation;
+      console.log('id transacao', response)
 
-      setDadosPix(name, email, celular, cpf, quant.toFixed(2), dataHora, codigo, quantRifas);
+
+      setDadosPix(name, email, celular, cpf, quant.toFixed(2), dataHora, codigo, quantRifas, idTransation);
       navigate("/order");
     } catch (error) {
       if (error.response) {

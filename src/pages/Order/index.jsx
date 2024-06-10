@@ -1,3 +1,4 @@
+
 import { Header } from "../../components/Header";
 import { OrderText } from "../../components/OrderText";
 import { Container } from "./style";
@@ -13,31 +14,43 @@ import { Button } from "../../components/Button";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import { PiWarningCircle } from "react-icons/pi";
 import { useState, useEffect } from "react";
+import axios from 'axios';
+
 
 export function Order() {
   const { data, setData } = useData(null);
   const [copy, setCopy] = useState();
 
+  const idTransacao = data.idTransation;
 
   async function handlePayment() {
-    
+    const url = `https://api.mercadopago.com/v1/payments/${idTransacao}`;
+    const token = process.env.VITE_ACCESS_TOKEN;
+
     try {
-      await api.post("/orderRifa/webhook", {
-        status: 'approved',
-        quantRifas: data.quantRifas
+      const response = await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       });
-      return 
+
+      if(response.data.status == 'approved') {
+            alert('aprovado')
+            return response.sendStatus(201);
+          } else {
+            alert('reprovado')
+            return response.sendStatus(201);
+          }
     } catch (error) {
-      return console.log(error)
+      setError(error);
     }
   }
-  
-  
+
   const handleCopy = () => {
-    const input = document.querySelector('.input-pix input');
+    const input = document.querySelector(".input-pix input");
     if (input) {
       input.select();
-      document.execCommand('copy');
+      document.execCommand("copy");
       navigator.clipboard.writeText(data.codigo).then(() => {
         setCopy(true);
       });
@@ -50,7 +63,6 @@ export function Order() {
       setData(JSON.parse(dataStorage));
     }
   }, [setData]);
-
 
   return (
     <Container>
@@ -78,7 +90,9 @@ export function Order() {
             <OrderText title="Copie o código PIX abaixo." number="1">
               <div className="input-pix">
                 <input type="text" value={data.codigo} readOnly />
-                <button onClick={handleCopy}>{copy ? <FaCheck/> : "Copiar"}</button>
+                <button onClick={handleCopy}>
+                  {copy ? <FaCheck /> : "Copiar"}
+                </button>
               </div>
             </OrderText>
 
@@ -100,7 +114,7 @@ export function Order() {
               </span>
             </div>
             <Button
-              
+              disabled={copy ? false : true}
               title="Já fiz o pagamento"
               icon={<IoCheckmarkDoneSharp />}
               onClick={handlePayment}
@@ -132,18 +146,32 @@ export function Order() {
 
         <div className="body-order">
           <div className="detalhes">
-          <h1><PiWarningCircle />Detalhes da sua compra</h1>
+            <h1>
+              <PiWarningCircle />
+              Detalhes da sua compra
+            </h1>
 
-          <div className="infos-detalhes">
-            <p><strong>Comprador:</strong> {data.nome}</p>
-            <p><strong>CPF:</strong> {data.cpf}</p>
-            <p><strong>Telefone:</strong> {data.celular}</p>
-            <p><strong>Data/horário:</strong> {data.dataHora}</p>
-            <p><strong>Total:</strong> R$ {data.valor}</p>
-            <p><strong>Cotas:</strong> As cotas são liberadas após o pagamento</p>
+            <div className="infos-detalhes">
+              <p>
+                <strong>Comprador:</strong> {data.nome}
+              </p>
+              <p>
+                <strong>CPF:</strong> {data.cpf}
+              </p>
+              <p>
+                <strong>Telefone:</strong> {data.celular}
+              </p>
+              <p>
+                <strong>Data/horário:</strong> {data.dataHora}
+              </p>
+              <p>
+                <strong>Total:</strong> R$ {data.valor}
+              </p>
+              <p>
+                <strong>Cotas:</strong> As cotas são liberadas após o pagamento
+              </p>
+            </div>
           </div>
-          </div>
-          
         </div>
       </div>
     </Container>
