@@ -29,7 +29,7 @@ export function Rifa() {
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const { data , setDadosPix} = useData();
+  const { data, setDadosPix } = useData();
 
   const [quant, setQuant] = useState(1);
   const [quantRifas, setQuantRifas] = useState(1);
@@ -65,8 +65,6 @@ export function Rifa() {
       return alert("Preencha o campo de CPF corretamente!");
     }
 
-
-
     const now = new Date();
     const day = String(now.getDate()).padStart(2, "0");
     const month = String(now.getMonth() + 1).padStart(2, "0");
@@ -80,17 +78,28 @@ export function Rifa() {
       const response = await api.post(`/orderRifa`, {
         // valorRifa: quant.toFixed(2),
         valorRifa: 0.01,
+        name,
         email,
         cpf,
-        quantRifas
+        celular,
+        quantRifas,
       });
 
       const codigo = response.data.qrCodeValue;
       const idTransation = response.data.idTransation;
-      console.log('id transacao', response)
+      console.log("id transacao", response);
 
-
-      setDadosPix(name, email, celular, cpf, quant.toFixed(2), dataHora, codigo, quantRifas, idTransation);
+      setDadosPix(
+        name,
+        email,
+        celular,
+        cpf,
+        quant.toFixed(2),
+        dataHora,
+        codigo,
+        quantRifas,
+        idTransation
+      );
       navigate("/order");
     } catch (error) {
       if (error.response) {
