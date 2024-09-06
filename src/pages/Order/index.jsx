@@ -20,7 +20,7 @@ import axios from 'axios';
 export function Order() {
   const { data, setData } = useData(null);
   const [copy, setCopy] = useState();
-
+console.log(data)
   const idTransacao = data.idTransation;
 
   async function handlePayment() {

@@ -77,7 +77,6 @@ export function Rifa() {
     try {
       const response = await api.post(`/orderRifa`, {
         valorRifa: quant.toFixed(2),
-        // valorRifa: 0.01,
         name,
         email,
         cpf,
@@ -87,7 +86,6 @@ export function Rifa() {
 
       const codigo = response.data.qrCodeValue;
       const idTransation = response.data.idTransation;
-      console.log("id transacao", response);
 
       setDadosPix(
         name,
