@@ -152,6 +152,7 @@ console.log(data)
             </h1>
 
             <div className="infos-detalhes">
+              <p><strong>ID da transação:</strong> {idTransacao}</p>
               <p>
                 <strong>Comprador:</strong> {data.nome}
               </p>
