@@ -31,8 +31,8 @@ export function Rifa() {
 
   const { data, setDadosPix } = useData();
 
-  const [quant, setQuant] = useState(1);
-  const [quantRifas, setQuantRifas] = useState(1);
+  const [quant, setQuant] = useState(0);
+  const [quantRifas, setQuantRifas] = useState(0);
 
   const [name, setName] = useState();
   const [email, setEmail] = useState();
@@ -111,17 +111,25 @@ export function Rifa() {
   function handleQuant(quant) {
     setQuantRifas((prevQuant) => prevQuant + quant);
     setQuant((prevQuant) => prevQuant + quant * 0.7);
+    console.log(quantRifas)
   }
 
   function handleQuantPromo(quant) {
     setQuantRifas((prevQuant) => prevQuant + quant);
     setQuant((prevQuant) => prevQuant + quant * 0.63);
+
+    console.log(quantRifas)
   }
 
   function handleRemoveQuant(quantRifa) {
-    if (quant > 1) {
-      setQuant((prevQuant) => prevQuant - 0.7);
+    if (quantRifas > 1) {
+      setQuantRifas((prevQuant) => prevQuant - quantRifa);
+
+      if (quant > 1) {
+        setQuant((prevQuant) => (quantRifas * 0.7) - 0.7);
+      }
     }
+
   }
 
   return (
